@@ -1,0 +1,27 @@
+import turtle
+import random
+.
+# Setup the screen
+screen = turtle.Screen()
+screen.title("Turtle Race Game")
+screen.bgcolor("light green")
+screen.setup(width=900, height=500)
+
+# Global variable to track points
+user_points = 0
+
+# Cybersecurity questions (simple, for example)
+# Expanded list of cybersecurity questions
+cybersecurity_questions = {
+    "What does VPN stand for?": "virtual private network",
+    "What is a strong password? (a) 123456 (b) abcdef (c) Abc@123": "c",
+    "What does 'HTTPS' stand for?": "hypertext transfer protocol secure",
+    "What is Phishing? (a) Hacking (b) Online fraud (c) Virus": "b",
+    "What does 2FA stand for?": "two-factor authentication",
+    "Which of these is a good security practice? (a) Using the same password everywhere (b) Using different passwords for different accounts": "b",
+    "What is a firewall used for? (a) Heating the computer (b) Blocking unauthorized access (c) Increasing internet speed": "b",
+    "What is the main goal of encryption? (a) To compress files (b) To keep data secure (c) To delete data": "b",
+    "What does malware refer to? (a) Software designed to protect your system (b) Malicious software (c) A type of hardware": "b",
+    "What should you do if you receive a suspicious email? (a) Open it (b) Delete it (c) Share it with friends": "b",
+    "What is the most secure type of public Wi-Fi connection? (a) Open (b) Password-protected": "b",
+    "What is an anti-virus program designed to do? (a) Slow down your computer
