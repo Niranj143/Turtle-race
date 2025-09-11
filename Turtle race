@@ -1,6 +1,6 @@
 import turtle
 import random
-.
+
 # Setup the screen
 screen = turtle.Screen()
 screen.title("Turtle Race Game")
@@ -24,4 +24,184 @@ cybersecurity_questions = {
     "What does malware refer to? (a) Software designed to protect your system (b) Malicious software (c) A type of hardware": "b",
     "What should you do if you receive a suspicious email? (a) Open it (b) Delete it (c) Share it with friends": "b",
     "What is the most secure type of public Wi-Fi connection? (a) Open (b) Password-protected": "b",
-    "What is an anti-virus program designed to do? (a) Slow down your computer
+    "What is an anti-virus program designed to do? (a) Slow down your computer (b) Detect and remove malicious software (c) Increase storage space": "b",
+    "What is a 'trojan horse' in cybersecurity? (a) A legitimate program (b) Malicious software disguised as legitimate software (c) A type of virus": "b",
+    "What is ransomware? (a) Software that demands a ransom (b) Free software (c) A security feature": "a",
+    "What should you do if your password is compromised? (a) Change it immediately (b) Do nothing (c) Use the same password for everything": "a",
+    "Which of these is an example of multi-factor authentication? (a) Password only (b) Password + fingerprint": "b",
+    "Which is safer, (a) Clicking random links online, or (b) Verifying links before clicking?": "b",
+    "What is social engineering in cybersecurity? (a) A virus type (b) A method to trick people into giving confidential info": "b",
+    "What is the main purpose of a strong password? (a) To be easily guessed (b) To protect access to personal information": "b",
+    "What is the most common way malware is spread? (a) Email attachments (b) Social media (c) Browsing websites": "a",
+    "What is an example of a DoS attack? (a) Denying access to a website (b) Sending spam (c) Hacking into emails": "a",
+    "Which of these is an example of safe browsing? (a) Clicking unknown ads (b) Visiting trusted and secure websites only": "b",
+    "What is a botnet? (a) A network of infected computers (b) An antivirus program (c) A computer network": "a",
+    "What is identity theft? (a) Stealing someone's personal info (b) Stealing a computer (c) Hacking a database": "a",
+    "What is the purpose of a CAPTCHA? (a) To verify you're human (b) To encrypt data (c) To clean a virus": "a",
+    "Which of these is a sign your computer might be infected with malware? (a) It is running faster (b) It shows frequent error messages": "b",
+    "What is spear phishing? (a) A broad attack on multiple people (b) A targeted phishing attack aimed at one person": "b",
+    "Which of these is a type of cyberattack? (a) SQL injection (b) Encryption (c) Firewall": "a",
+    "What should you avoid using on public Wi-Fi? (a) Online shopping (b) Social media (c) Both": "a",
+    "What does it mean if a website has a padlock in the address bar? (a) It is secure and uses encryption (b) It is locked for everyone": "a",
+    "What is a brute force attack? (a) Guessing passwords repeatedly until correct (b) Deleting files": "a",
+    "What does GDPR stand for? (a) General Data Protection Regulation (b) General Data Program Rule": "a",
+    "Which of these is the best way to protect sensitive files? (a) Encrypt them (b) Delete them (c) Copy them": "a",
+    "What is the purpose of a VPN? (a) To secure internet traffic (b) To increase internet speed (c) To block all websites": "a",
+    "Which of these is an example of social engineering? (a) A phone call pretending to be tech support (b) Encrypting data": "a",
+    "What does a keylogger do? (a) Tracks keystrokes to steal info (b) Records voice commands": "a",
+    "What is a common characteristic of phishing emails? (a) They often look legitimate (b) They are always from hackers": "a",
+    "What should you do if you think your email was hacked? (a) Change your password (b) Ignore it (c) Forward the email to others": "a",
+    "Which is a best practice for password management? (a) Use a password manager (b) Write passwords on a sticky note": "a",
+    "What is a sandbox in cybersecurity? (a) A safe environment for testing programs (b) A place to store files": "a",
+    "What is spyware? (a) Software that spies on a user’s activity (b) A virus that deletes files": "a",
+    "What is 'zero-day vulnerability'? (a) A security flaw that is not yet known to developers (b) A vulnerability that cannot be fixed": "a",
+    "What is the best way to handle software updates? (a) Install them as soon as available (b) Ignore them": "a",
+    "What is 'password hashing'? (a) A method to secure passwords (b) Storing passwords in plain text": "a"
+}
+import random
+
+# Global list to track the asked cybersecurity questions
+asked_questions = []
+
+# Function to ask a cybersecurity question
+def ask_cybersecurity_question():
+    global asked_questions
+    remaining_questions = [q for q in cybersecurity_questions.keys() if q not in asked_questions]
+
+    # Check if all questions have been asked, and reset if necessary
+    if not remaining_questions:
+        asked_questions = []
+        remaining_questions = list(cybersecurity_questions.keys())
+
+    # Select a new question from the remaining ones
+    question = random.choice(remaining_questions)
+    asked_questions.append(question)  # Mark this question as asked
+    
+    # Get the correct answer for the selected question
+    answer = cybersecurity_questions[question]
+
+    # Prompt the user for their answer
+    user_answer = screen.textinput("Cybersecurity Question", question)
+    
+    # Check if the answer is correct
+    if user_answer and user_answer.lower() == answer.lower():
+        return True  # Answer is correct
+    else:
+        return False  # Answer is incorrect
+
+# Draw black-and-white checkered start and finish lines
+def draw_checkered_line(x):
+    line = turtle.Turtle()
+    line.speed(300)
+    line.penup()
+    line.goto(x, 150)
+    line.setheading(270)
+    line.hideturtle()
+    for i in range(18):
+        line.penup()
+        line.goto(x, 150 - (i * 20))
+        if i % 2 == 0:
+            line.color("black")
+        else:
+            line.color("white")
+        line.pendown()
+        line.begin_fill()
+        for _ in range(4):
+            line.forward(20)
+            line.right(90)
+        line.end_fill()
+
+# Function to announce the winner and give points or ask a question
+def announce_winner(winner_color):
+    global user_points
+    announcer = turtle.Turtle()
+    announcer.hideturtle()
+    announcer.penup()
+    announcer.goto(2,100)
+    announcer.color("black")
+    
+    if winner_color == user_prediction:
+        announcer.write(f"Congratulations!\nThe {winner_color} turtle won,\nand you guessed correctly! You earned 10 points.", 
+                        align="center", font=("times new roman", 20, "bold"))
+        user_points += 10  # Award 10 points for a correct guess
+    else:
+        announcer.write(f"Sorry!\nThe winner is {winner_color} turtle.\nYou guessed wrong! But you have one more chance.", 
+                        align="center", font=("times new roman", 20, "bold"))
+    
+    # Ask a cybersecurity question
+    if ask_cybersecurity_question():
+        announcer.clear()  # Clear the previous message
+        announcer.write(f"Great! You answered the question correctly.\nYou earned 5 extra points!", align="center", font=("times new roman", 26, "bold"))
+        user_points += 5  # Award 5 extra points for a correct answer to the question
+    else:
+        announcer.clear()
+        announcer.write(f"Wrong answer.\nBetter luck next time!", align="center", font=("times new roman", 26, "bold"))
+    
+    announcer.penup()
+    announcer.goto(0, -50)
+    announcer.write(f"Total Points: {user_points}", align="center", font=("times new roman", 20, "bold"))
+
+# Create turtles and their starting positions
+turtle_colors = ["navy", "red", "green", "yellow", "brown"]
+turtles = []
+start_y_positions = [75, 25, -25, -75, -125]
+
+def setup_turtles():
+    for i in range(5):
+        racer = turtle.Turtle()
+        racer.shape("turtle")
+        racer.color(turtle_colors[i])
+        racer.shapesize(stretch_wid=1,stretch_len=1)
+        racer.penup()
+        racer.goto(x=-370, y=start_y_positions[i])
+        turtles.append(racer)
+
+# Declare the start and finish lines, and show the turtles before the race
+def declare_race():
+    draw_checkered_line(-350)  # Start line
+    draw_checkered_line(350)   # Finish line
+    
+# Function to start the race and determine the winner
+def start_race():
+    is_race_on = True
+    while is_race_on:
+        for racer in turtles:
+            if racer.xcor() < 350:
+                distance = random.randint(1, 10)
+                racer.forward(distance)
+
+            if racer.xcor() >= 350:
+                is_race_on = False
+                winner = racer.color()[0]  # Get the color of the winning turtle
+                announce_winner(winner)  # Announce the winner
+                break
+
+# Function to display the play button and start the race
+def display_play_button():
+    play_button = turtle.Turtle()
+    play_button.shape("triangle")
+    play_button.color("black")
+    play_button.shapesize(stretch_wid=3, stretch_len=2)
+    play_button.penup()
+    play_button.goto(0, 0)
+
+    def on_click(x, y):
+        play_button.hideturtle()  # Hide the button once clicked
+        start_race()  # Start the race
+
+    play_button.onclick(on_click)
+
+# Declare the race (start and finish lines, and turtle details)
+declare_race()
+
+# Setup turtles before the race starts
+setup_turtles()
+
+# Ask the user for their prediction after the setup is done
+user_prediction = screen.textinput("Can you guess", "Which turtle will win the race? (navy, red, green, yellow, brown):").lower()
+
+# Display the play button
+display_play_button()
+
+# Keep the window open
+screen.mainloop()
