@@ -22,4 +22,4 @@ This project is a **Python game** that combines fun with learning. Players first
 ## 🚀 How to Run
 1. Install Python 3.
 2. Clone the repo:
-git clone https://github.com/Niranj143/turtle-race-cybersecurity.git
+git clone https://github.com/Niranj143/turtle-race.git
